@@ -2,3 +2,6 @@ langchain
 python-dotenv
 langchain_community
 ipykernel
+bs4
+arxiv
+pymupdf
