@@ -9,3 +9,5 @@ wikipedia
 jupyter
 pypdf
 langchain-text-splitters
+langchain-openai
+chromadb
