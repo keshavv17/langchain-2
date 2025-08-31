@@ -5,3 +5,7 @@ ipykernel
 bs4
 arxiv
 pymupdf
+wikipedia
+jupyter
+pypdf
+langchain-text-splitters
