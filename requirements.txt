@@ -11,4 +11,6 @@ pypdf
 langchain-text-splitters
 langchain-openai
 chromadb
-lanchain-ollama
+langchain-ollama
+sentence_transformers
+langchain_huggingface
