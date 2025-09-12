@@ -1,0 +1,40 @@
+import streamlit as st
+import os
+from dotenv import load_dotenv
+from langchain_community.utilities import ArxivAPIWrapper, WikipediaAPIWrapper
+from langchain_community.tools import ArxivQueryRun, WikipediaQueryRun, DuckDuckGoSearchRun
+from langchain_groq import ChatGroq
+from langchain.agents import initialize_agent, AgentType
+from langchain.callbacks import StreamlitCallbackHandler
+
+load_dotenv()
+
+## arxiv and wikipedia tools
+arxiv_wrapper = ArxivAPIWrapper(top_k_results=1, doc_content_chars_max=250)
+arxiv = ArxivQueryRun(api_wrapper = arxiv_wrapper)
+
+wiki_wrapper = WikipediaAPIWrapper(top_k_results=1, doc_content_chars_max=250)
+wiki = WikipediaQueryRun(api_wrapper = wiki_wrapper)
+
+## duck duck go search tool
+search = DuckDuckGoSearchRun(name = "search")
+
+## streamlit app
+st.title("Langchain - chat with search")
+
+"""
+In this example, we're using `StreamlitCallbackHandler` to display the thoughts and actions of an agent in an interactive Streamlit app.
+Try more LangChain 🤝 Streamlit Agent examples at [github.com/langchain-ai/streamlit-agent](https://github.com/langchain-ai/streamlit-agent).
+"""
+
+## Sidebar for settings 
+st.sidebar.title('Settings')
+api_key = st.sidebar.text_input("Enter your groq api key: ", type = 'password')
+
+if 'messages' not in st.session_state:
+    st.session_state['messages']=[
+        {"role":"assistant", "content":"Hi, im a chatbot who can search the web. How can i help you"}
+    ]
+    
+for msg in st.session_state.messages:
+    st.chat_message(msg['role'].write(msg['content']))
